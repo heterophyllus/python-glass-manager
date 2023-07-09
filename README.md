@@ -3,7 +3,7 @@
 ## Summary
 This is a Python module to utilize optical glass catalogs distibuted in formats of AGF/XML. 
 
-The code is transcribed from core components of [GlassPlotter](https://github.com/heterophyllus/GlassPlotter). With main purpose set to enable more flexible analysis, minimum functions are implemented and any practical analysis requires programmatic procedure.
+This project is launched to transcribe the codes from core components of [GlassPlotter](https://github.com/heterophyllus/GlassPlotter) to allow for more flexible analysis. Since The repository provides essential classes with minimum functions, any practical analysis requires programmatic procedure.
 
 Read tutorial for further information.
 

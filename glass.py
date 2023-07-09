@@ -102,6 +102,16 @@ class Air:
         denom =  1.0 + (T-Tref)*(3.4785*pow(10,-3))
         return ( 1.0 + (num/denom)*(P/P0) )
 
+    def get_lambda_rel(self, lambda_input, Ts= 20, Ps = 1013.25)->float:
+        T0 = 15
+        P0 = 1013.25
+
+        n_air_P0T0 = self.refractive_index_abs(lambda_input, T0, P0)
+        n_air_PsTs = self.refractive_index_abs(lambda_input, Ts, Ps)
+
+        lambda_rel = lambda_input*(n_air_PsTs/n_air_P0T0)
+
+        return lambda_rel
 
 class Glass:
     def __init__(self) -> None:
@@ -183,8 +193,11 @@ class Glass:
     
     def refractive_index_rel(self, lambdamicron) ->float:
         air = Air()
-        n_abs = self.refractive_index_abs(lambdamicron)
-        n_air = air.refractive_index_abs(lambdamicron, self.T)
+
+        scaled_lambdamicron = self.scale_wavelength(lambdamicron)
+
+        n_abs = self.refractive_index_abs(scaled_lambdamicron)
+        n_air = air.refractive_index_abs(scaled_lambdamicron, self.T)
         n_rel = n_abs/n_air
         return n_rel
 
@@ -194,6 +207,15 @@ class Glass:
         n = self.refractive_index_abs_Tref(lambdamicron)
         return (n*n-1)/(2*n) * ( self.D0 + 2*self.D1*dT + 3*self.D2*dT*dT + (self.E0 + 2*self.E1*dT)/(lambdamicron*lambdamicron - Stk*self.Ltk*self.Ltk) )
 
+    def scale_wavelength(self, lambdainput:float):
+        P = 101325.0
+        air = Air()
+        n_air_system = air.refractive_index_abs(lambdainput,self.T, P)
+        n_air_ref = air.refractive_index_abs(lambdainput, self.Tref, P)
+        
+        return lambdainput * (n_air_system/n_air_ref)
+
+   
 
 class GlassCatalog:
     def __init__(self) -> None:
@@ -266,7 +288,7 @@ class GlassCatalogManager:
             catalog = GlassCatalog()
             ok = catalog.load_agf(filepath)
             if ok:
-                print("Loaded " + filepath)
+                #print("Loaded " + filepath)
                 self.catalogs.append(catalog)
 
     
