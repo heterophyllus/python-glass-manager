@@ -1,11 +1,19 @@
 # Python Glass Catalog Tools
 
 ## Summary
-This is a Python module to utilize optical glass catalogs distibuted in formats of AGF/XML. 
+This repository includes Python codes to utilize optical glass catalogs distibuted in formats of AGF/XML. 
 
-This project is launched to transcribe the codes from core components of [GlassPlotter](https://github.com/heterophyllus/GlassPlotter) to allow for more flexible analysis. Since The repository provides essential classes with minimum functions, any practical analysis requires programmatic procedure.
+These codes are the transcription from core components of [GlassPlotter](https://github.com/heterophyllus/GlassPlotter), though this Python codes prefer scripting usage rather than GUI.
 
-Read tutorial for further information.
+
+## Getting Started
+Python codes stored in the repository are themselves examples.
+
+For instance, to show Abbe-diagram, just type
+```python
+python glassmap.py
+```
+
 
 ## License
 MIT
