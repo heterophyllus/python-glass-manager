@@ -1,6 +1,5 @@
 from glass import *
 import glob
-import matplotlib.pyplot as plt
 
 files = glob.glob("./AGF/*.agf")
 
